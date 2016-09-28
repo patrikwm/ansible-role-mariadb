@@ -1,9 +1,15 @@
 ---
-- name: Add repo file
-  template: src=mariadb_centos.repo.j2 dest=/etc/yum.repos.d/mariadb.repo owner=root group=root mode=0644
+- name: Add MariaDB 10.1 repository
+  yum_repository:
+    name: MariaDB
+    description: MariaDB
+    file: mariadb
+    baseurl: http://yum.mariadb.org/10.1/centos7-amd64
+    gpgcheck: yes
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 
 - name: Install MariaDB
-  yum: name={{ item }} enablerepo=mariadb state=present
+  yum: name={{ item }} state=present
   with_items:
     - MariaDB-server
     - MariaDB-client
