@@ -3,6 +3,11 @@
 # UPDATE mysql.user SET Password=PASSWORD('mysecret') WHERE User='root';
 # FLUSH PRIVILEGES;
 
+- name: start mysql service
+  service:
+    name: mysql
+    state: started
+
 - name: Set root Password
   mysql_user: name=root host={{ item }} password={{ mysql_root_password }} state=present
   with_items:
