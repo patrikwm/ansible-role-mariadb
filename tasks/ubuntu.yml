@@ -1,26 +1,26 @@
 ---
-- name: Add repo file
+- name: Add repo file (Ubuntu)
   template: src=mariadb_ubuntu.list.j2 dest=/etc/apt/sources.list.d/mariadb.list owner=root group=root mode=0644
   register: mariadb_list
 
-- name: Add repo key
+- name: Add repo key (Ubuntu)
   apt_key: id=1BB943DB url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xCBCB082A1BB943DB state=present
   register: mariadb_key
 
-- name: Update apt cache
+- name: Update apt cache (Ubuntu)
   apt: update_cache=yes
   when: mariadb_list.changed == True or mariadb_key.changed == True
 
-- name: Unattended package installation
+- name: Unattended package installation (Ubuntu)
   shell: export DEBIAN_FRONTEND=noninteractive
   changed_when: false
 
-- name: Install MariaDB
+- name: Install MariaDB (Ubuntu)
   apt: pkg={{ item }} state=present
   with_items:
     - mariadb-server
     - mariadb-client
 
-- name: Install MySQLdb Python package for secure installations.
+- name: Install MySQLdb Python package for secure installations. (Ubuntu)
   apt: pkg=python-mysqldb state=present
   when: mysql_secure_installation and mysql_root_password is defined

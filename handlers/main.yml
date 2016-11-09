@@ -4,3 +4,6 @@
 
 - name: enable mysql
   service: name=mysql enabled=yes
+
+- name: start MySQL
+  service: name=mysql state=started

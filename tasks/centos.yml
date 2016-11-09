@@ -16,6 +16,7 @@
   notify:
     - restart mysql
     - enable mysql
+
 - name: Install MySQLdb Python package for secure installations. (RedHat)
   yum: name=MySQL-python state=present
   when: mysql_secure_installation and mysql_root_password is defined
