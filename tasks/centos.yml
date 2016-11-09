@@ -1,5 +1,5 @@
 ---
-- name: Add MariaDB 10.1 repository
+- name: Add MariaDB 10.1 repository (RedHat)
   yum_repository:
     name: MariaDB
     description: MariaDB
@@ -8,12 +8,14 @@
     gpgcheck: yes
     gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 
-- name: Install MariaDB
+- name: Install MariaDB (RedHat)
   yum: name={{ item }} state=present
   with_items:
     - MariaDB-server
     - MariaDB-client
-
-- name: Install MySQLdb Python package for secure installations.
+  notify:
+    - restart mysql
+    - enable mysql
+- name: Install MySQLdb Python package for secure installations. (RedHat)
   yum: name=MySQL-python state=present
   when: mysql_secure_installation and mysql_root_password is defined
