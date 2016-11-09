@@ -12,7 +12,5 @@
     - restart mysql
     - enable mysql
 
-
-
 - include: mysql_secure_installation.yml
   when: mysql_secure_installation and mysql_root_password is defined

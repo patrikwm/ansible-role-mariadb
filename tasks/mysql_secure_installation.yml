@@ -36,12 +36,9 @@
   changed_when: False
 
 - name: Remove test database and access to it
-  command: 'mysql -ne "{{ item }}"'
-  with_items:
-    - DROP DATABASE test
-    - DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'
-  changed_when: False
-  ignore_errors: True
+  mysql_db:
+    name: test
+    state: absent
 
 - name: Reload privilege tables
   command: 'mysql -ne "{{ item }}"'
